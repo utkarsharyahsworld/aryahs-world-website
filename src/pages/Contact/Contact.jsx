@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { motion } from 'framer-motion';
 import { company } from '../../data/company';
 
 export function Contact() {
@@ -39,16 +40,34 @@ export function Contact() {
     <main>
       <section className="bg-blue-600 text-white py-10 md:py-12 lg:py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h1 className="text-3xl sm:text-4xl font-bold mb-3 md:mb-4 leading-tight">Get In Touch</h1>
-          <p className="text-blue-100 text-base md:text-lg leading-relaxed">
+          <motion.h1
+            className="text-3xl sm:text-4xl font-bold mb-3 md:mb-4 leading-tight"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, ease: 'easeOut' }}
+          >
+            Get In Touch
+          </motion.h1>
+          <motion.p
+            className="text-blue-100 text-base md:text-lg leading-relaxed"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, ease: 'easeOut', delay: 0.1 }}
+          >
             Have a project in mind? We'd love to hear from you.
-          </p>
+          </motion.p>
         </div>
       </section>
 
-      <section className="py-10 md:py-12 lg:py-16 bg-white">
+      <section className="py-12 md:py-16 lg:py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 md:gap-12 mb-16 md:mb-20">
+          <motion.div
+            className="grid grid-cols-1 lg:grid-cols-3 gap-8 md:gap-12 mb-16 md:mb-20"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, ease: 'easeOut' }}
+            viewport={{ once: true, margin: '-50px' }}
+          >
             <div>
               <h3 className="text-2xl md:text-3xl font-bold mb-6 md:mb-8">Contact Information</h3>
               <div className="space-y-6 md:space-y-8">
@@ -219,13 +238,19 @@ export function Contact() {
                 </button>
               </form>
             </div>
-          </div>
+          </motion.div>
         </div>
       </section>
 
       <section className="bg-blue-50 py-10 md:py-12 lg:py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="bg-white rounded-lg shadow-md p-6 md:p-8 lg:p-10">
+          <motion.div
+            className="bg-white rounded-lg shadow-md p-6 md:p-8 lg:p-10"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, ease: 'easeOut' }}
+            viewport={{ once: true, margin: '-50px' }}
+          >
             <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-6 md:mb-8">What to Expect</h2>
             <ul className="space-y-4 md:space-y-5">
               <li className="flex items-start gap-3 md:gap-4">
@@ -253,7 +278,7 @@ export function Contact() {
                 </span>
               </li>
             </ul>
-          </div>
+          </motion.div>
         </div>
       </section>
     </main>

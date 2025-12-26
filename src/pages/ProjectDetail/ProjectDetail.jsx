@@ -1,4 +1,5 @@
 import { useParams, Link } from 'react-router-dom';
+import { motion } from 'framer-motion';
 import { projects } from '../../data/projects';
 
 export function ProjectDetail() {
@@ -8,7 +9,7 @@ export function ProjectDetail() {
   if (!project) {
     return (
       <main>
-        <section className="py-10 md:py-12 lg:py-16 bg-white">
+        <section className="py-12 md:py-16 lg:py-20 bg-white">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <h1 className="text-4xl font-bold text-gray-900 mb-4">
               Project Not Found
@@ -40,10 +41,11 @@ export function ProjectDetail() {
             src={project.image}
             alt={project.title}
             className="w-full h-full object-cover"
+            loading="eager"
           />
         </div>
         <header className="bg-gradient-to-b from-blue-600 to-blue-800 text-white py-10 md:py-12 lg:py-16">
-          <div className=" mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="mb-4 md:mb-6">
               <Link
                 to="/projects"
@@ -55,23 +57,35 @@ export function ProjectDetail() {
             <span className="text-blue-100 text-xs md:text-sm font-semibold uppercase tracking-wide">
               {project.domain}
             </span>
-            <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold mt-3 md:mt-4 mb-4 md:mb-6 leading-tight">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold mt-3 md:mt-4 mb-4 md:mb-6 leading-tight break-words">
               {project.title}
             </h1>
             <p className="text-blue-100 text-base md:text-lg">{project.year}</p>
           </div>
         </header>
 
-        <section className="mx-auto px-4 sm:px-6 lg:px-8 py-10 md:py-12 lg:py-16">
-          <div className="mb-12 md:mb-16">
-            <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-4 md:mb-6">Overview</h2>
-            <p className="text-gray-700 text-base md:text-lg leading-loose whitespace-pre-wrap">
+        <section className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10 md:py-12 lg:py-16">
+          <motion.div
+            className="mb-12 md:mb-16"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, ease: 'easeOut' }}
+            viewport={{ once: true, margin: '-50px' }}
+          >
+            <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-4 md:mb-6 break-words">Overview</h2>
+            <p className="text-gray-700 text-base md:text-lg leading-loose whitespace-pre-wrap break-words">
               {project.longDescription}
             </p>
-          </div>
+          </motion.div>
 
-          <div className="mb-12 md:mb-16">
-            <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-6 md:mb-8">Key Details</h2>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, ease: 'easeOut' }}
+            viewport={{ once: true, margin: '-50px' }}
+            className="mb-12 md:mb-16"
+          >
+            <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-6 md:mb-8 break-words">Key Details</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
               <div className="bg-gray-50 p-5 md:p-7 rounded-lg">
                 <h3 className="font-semibold text-gray-900 mb-3 text-base md:text-lg">Problem</h3>
@@ -82,17 +96,31 @@ export function ProjectDetail() {
                 <p className="text-gray-700 text-sm md:text-base leading-relaxed">{project.solution}</p>
               </div>
             </div>
-          </div>
+          </motion.div>
 
-          <div className="bg-blue-50 p-5 md:p-7 rounded-lg border border-blue-100">
+          <motion.div
+            className="bg-blue-50 p-5 md:p-7 rounded-lg border border-blue-100"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, ease: 'easeOut' }}
+            viewport={{ once: true, margin: '-50px' }}
+          >
             <h3 className="text-lg md:text-xl font-semibold text-gray-900 mb-3">Outcomes</h3>
             <p className="text-gray-700 text-sm md:text-base leading-relaxed">{project.outcomes}</p>
-          </div>
+          </motion.div>
         </section>
 
         <section className="bg-gray-50 py-10 md:py-12 lg:py-16">
-          <div className="mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-6 md:mb-8">Tech Stack</h2>
+          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <motion.h2
+              className="text-2xl md:text-3xl lg:text-4xl font-bold mb-6 md:mb-8"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, ease: 'easeOut' }}
+              viewport={{ once: true, margin: '-50px' }}
+            >
+              Tech Stack
+            </motion.h2>
             <div className="flex flex-wrap gap-2 md:gap-3">
               {project.techStack.map((tech) => (
                 <span
@@ -107,10 +135,24 @@ export function ProjectDetail() {
         </section>
 
         {relatedProjects.length > 0 && (
-          <section className="py-10 md:py-12 lg:py-16 bg-white">
+          <section className="py-12 md:py-16 lg:py-20 bg-white">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-              <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-8 md:mb-12">Related Projects</h2>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+              <motion.h2
+                className="text-2xl md:text-3xl lg:text-4xl font-bold mb-8 md:mb-12"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, ease: 'easeOut' }}
+                viewport={{ once: true, margin: '-50px' }}
+              >
+                Related Projects
+              </motion.h2>
+              <motion.div
+                className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, ease: 'easeOut', delay: 0.1 }}
+                viewport={{ once: true, margin: '-50px' }}
+              >
                 {relatedProjects.map((relatedProject) => (
                   <Link
                     key={relatedProject.id}
@@ -122,6 +164,7 @@ export function ProjectDetail() {
                         src={relatedProject.image}
                         alt={relatedProject.title}
                         className="w-full h-full object-cover group-hover:scale-105 transition duration-300"
+                        loading="lazy"
                       />
                     </div>
                     <div className="p-5 md:p-6 flex-1 flex flex-col">
@@ -137,7 +180,7 @@ export function ProjectDetail() {
                     </div>
                   </Link>
                 ))}
-              </div>
+              </motion.div>
             </div>
           </section>
         )}

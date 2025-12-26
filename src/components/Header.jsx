@@ -11,19 +11,20 @@ export function Header() {
 
   return (
     <header className="bg-white shadow-sm sticky top-0 z-50">
-      <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 md:py-5 flex justify-between items-center">
-        <Link to="/" className="flex items-center gap-3 flex-shrink-0">
+      <nav aria-label="Main navigation" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 md:py-4 flex justify-between items-center">
+        <Link to="/" className="flex items-center gap-2 sm:gap-3 flex-shrink-0">
           <img
             src="/assets/images/logo.jpg"
             alt="Aryahs World Infotech"
-            className="h-8 w-8 md:h-10 md:w-10 object-contain"
+            className="h-10 w-10 sm:h-12 sm:w-12 md:h-14 md:w-14 object-contain"
           />
-          <span className="text-2xl md:text-3xl font-bold text-blue-600">Aryahs World</span>
+          <span className="text-xl sm:text-2xl md:text-3xl font-bold text-blue-600 truncate">Aryahs World</span>
         </Link>
         <button
           className="md:hidden inline-flex items-center justify-center p-2 rounded-lg border border-gray-200 text-gray-700 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-600 transition"
           aria-label="Toggle navigation menu"
           aria-expanded={menuOpen}
+          aria-controls="mobile-menu"
           onClick={() => setMenuOpen((o) => !o)}
         >
           <span className="sr-only">Open main menu</span>
@@ -54,6 +55,7 @@ export function Header() {
         </ul>
       </nav>
       <div
+        id="mobile-menu"
         className={`md:hidden border-t border-gray-200 bg-white transition-all duration-200 ease-out ${menuOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'} overflow-hidden`}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2">

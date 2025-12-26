@@ -11,8 +11,6 @@ export function TimelineProjects() {
     target: containerRef,
     offset: ['start center', 'end center'],
   });
-
-  // Transform scroll progress to timeline line height (0 to 1)
   const lineHeight = useTransform(scrollYProgress, [0, 1], ['0%', '100%']);
 
   // Subtle item variants with staggered timing
@@ -60,14 +58,7 @@ export function TimelineProjects() {
   };
 
   return (
-    <section
-      ref={containerRef}
-      className="relative py-10 md:py-12 lg:py-16 bg-gradient-to-b from-gray-50 via-gray-50 to-blue-50 overflow-hidden"
-    >
-      {/* Subtle background pattern */}
-      <div className="absolute inset-0 opacity-[0.015]">
-        <div className="absolute inset-0 bg-[linear-gradient(45deg,transparent_25%,rgba(68,68,68,.2)_25%,rgba(68,68,68,.2)_50%,transparent_50%,transparent_75%,rgba(68,68,68,.2)_75%,rgba(68,68,68,.2))] bg-[length:60px_60px]"></div>
-      </div>
+    <section className="relative py-12 md:py-16 lg:py-20 bg-white overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <motion.div className="text-center mb-12 md:mb-16" initial={{ opacity: 0, y: -20 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }} viewport={{ once: true }}>
           <h2 className="text-3xl sm:text-4xl font-bold mb-3 md:mb-4 leading-tight text-gray-900">
@@ -78,100 +69,109 @@ export function TimelineProjects() {
           </p>
         </motion.div>
 
-        {/* Desktop Timeline with center line */}
-        <div className="hidden md:block relative">
-          {/* Animated center vertical line */}
-          <motion.div className="absolute left-1/2 top-0 bottom-0 w-1 bg-gradient-to-b from-blue-600 via-blue-500 to-blue-400 transform -translate-x-1/2 origin-top" style={{ height: lineHeight }}></motion.div>
-
-          <div className="space-y-0">
-            {sortedProjects.map((project, index) => (
-              <motion.div
-                key={project.id}
-                custom={index}
-                initial="hidden"
-                whileInView="visible"
-                variants={itemVariants}
-                viewport={{ once: false, margin: '-100px' }}
-                className={`flex py-12 ${index % 2 === 0 ? 'flex-row' : 'flex-row-reverse'}`}
-              >
-                {/* Left/Right content area (50% width) */}
-                <div className="w-1/2">
-                  <div className={`${index % 2 === 0 ? 'pr-12' : 'pl-12'}`}>
-                    <Link
-                      to={`/projects/${project.slug}`}
-                      className="group relative bg-white rounded-lg shadow-md hover:shadow-xl transition-all duration-300 p-6 block hover:bg-blue-50"
-                    >
-                      {/* Accent line on hover */}
-                      <div className="absolute top-0 left-0 h-1 w-0 group-hover:w-full bg-blue-600 rounded-t-lg transition-all duration-300"></div>
-
-                      <div className="flex items-center justify-between mb-3">
-                        <motion.span className="text-xs font-bold text-blue-600 uppercase tracking-widest drop-shadow-sm" initial={{ opacity: 0.6 }} whileHover={{ opacity: 1 }} transition={{ duration: 0.2 }}>
-                          {project.domain}
-                        </motion.span>
-                      </div>
-
-                      <h3 className="text-lg font-bold mb-2 group-hover:text-blue-600 transition duration-300">
-                        {project.title}
-                      </h3>
-
-                      <p className="text-gray-600 text-sm mb-4 leading-relaxed line-clamp-3">
-                        {project.description}
-                      </p>
-
-                      <motion.div className="inline-block px-3 py-1 bg-blue-50 text-blue-600 text-xs font-semibold rounded group-hover:bg-blue-600 group-hover:text-white transition duration-300" whileHover={{ x: 3 }} transition={{ duration: 0.2 }}>
-                        View Project →
-                      </motion.div>
-                    </Link>
+        {/* Desktop Timeline - Grid with 3 columns */}
+        <div className="hidden md:block">
+          <div ref={containerRef} className="relative max-w-5xl mx-auto">
+            <div className="absolute left-1/2 top-0 bottom-0 w-px bg-gray-200 -translate-x-1/2" />
+            <motion.div
+              className="absolute left-1/2 top-0 w-1 bg-blue-600 -translate-x-1/2 origin-top"
+              style={{ height: lineHeight }}
+            />
+            {sortedProjects.map((project, index) => {
+              const isLeft = index % 2 === 0;
+              return (
+                <motion.div
+                  key={project.id}
+                  custom={index}
+                  initial="hidden"
+                  whileInView="visible"
+                  variants={itemVariants}
+                  viewport={{ once: false, margin: '-120px' }}
+                  className="grid grid-cols-[1fr_5rem_1fr] items-start py-12"
+                >
+                  {/* Left column */}
+                  <div className={isLeft ? 'pr-6' : ''}>
+                    {isLeft ? (
+                      <Link
+                        to={`/projects/${project.slug}`}
+                        className="group relative bg-white rounded-lg shadow-md hover:shadow-lg transition-all duration-300 p-6 block hover:bg-blue-50"
+                      >
+                        <div className="absolute top-0 left-0 h-1 w-0 group-hover:w-full bg-blue-600 rounded-t-lg transition-all duration-300"></div>
+                        <div className="flex items-center justify-between mb-3">
+                          <span className="text-xs font-bold text-blue-600 uppercase tracking-widest">{project.domain}</span>
+                        </div>
+                        <h3 className="text-lg font-bold mb-2 group-hover:text-blue-600 transition duration-300">
+                          {project.title}
+                        </h3>
+                        <p className="text-gray-600 text-sm mb-4 leading-relaxed line-clamp-3">
+                          {project.description}
+                        </p>
+                        <div className="inline-block px-3 py-1 bg-blue-50 text-blue-600 text-xs font-semibold rounded group-hover:bg-blue-600 group-hover:text-white transition duration-300">
+                          View Project →
+                        </div>
+                      </Link>
+                    ) : null}
                   </div>
-                </div>
 
-                {/* Center timeline dot and date - animated together */}
-                <div className="w-0 flex justify-center relative">
-                  {/* Timeline dot */}
-                  <motion.div
-                    custom={index}
-                    initial="hidden"
-                    whileInView="visible"
-                    variants={dotVariants}
-                    viewport={{ once: false, margin: '-100px' }}
-                  >
+                  {/* Center spine column */}
+                  <div className="relative flex items-center justify-center">
+                    <div className="absolute top-0 bottom-0 left-1/2 -translate-x-1/2 w-px bg-gray-300" />
                     <motion.div
-                      className="w-5 h-5 bg-blue-600 border-4 border-white rounded-full shadow-lg ring-2 ring-blue-100 relative z-20"
-                      whileHover={{ scale: 1.3, boxShadow: '0 0 0 8px rgba(37, 99, 235, 0.1)' }}
-                      transition={{ duration: 0.3 }}
-                    />
-                  </motion.div>
+                      custom={index}
+                      initial="hidden"
+                      whileInView="visible"
+                      variants={dotVariants}
+                      viewport={{ once: false, margin: '-120px' }}
+                      className="relative"
+                    >
+                      <div className="w-4 h-4 bg-blue-600 border-4 border-white rounded-full shadow ring-2 ring-blue-100" />
+                    </motion.div>
+                    <div
+                      className={`absolute top-1/2 -translate-y-1/2 ${isLeft ? 'left-0 -translate-x-full mr-2' : 'right-0 translate-x-full ml-2'}`}
+                    >
+                      <span className="inline-block px-2.5 py-1 rounded-md bg-white border border-gray-300 text-gray-700 text-xs font-medium shadow-sm whitespace-nowrap">
+                        {formatDate(project)}
+                      </span>
+                    </div>
+                  </div>
 
-                  {/* Date badge */}
-                  <motion.div
-                    custom={index}
-                    initial="hidden"
-                    whileInView="visible"
-                    variants={dateVariants}
-                    viewport={{ once: false, margin: '-100px' }}
-                    className={`absolute top-1/2 transform -translate-y-1/2 ${
-                      index % 2 === 0 ? 'left-16' : 'right-16'
-                    }`}
-                  >
-                    <span className="inline-block px-2.5 py-1 rounded-md bg-white border border-gray-300 text-gray-700 text-xs font-medium shadow-sm whitespace-nowrap">
-                      {formatDate(project)}
-                    </span>
-                  </motion.div>
-                </div>
-
-                {/* Empty right/left area (50% width) */}
-                <div className="w-1/2"></div>
-              </motion.div>
-            ))}
+                  {/* Right column */}
+                  <div className={isLeft ? '' : 'pl-6'}>
+                    {!isLeft ? (
+                      <Link
+                        to={`/projects/${project.slug}`}
+                        className="group relative bg-white rounded-lg shadow-md hover:shadow-lg transition-all duration-300 p-6 block hover:bg-blue-50"
+                      >
+                        <div className="absolute top-0 left-0 h-1 w-0 group-hover:w-full bg-blue-600 rounded-t-lg transition-all duration-300"></div>
+                        <div className="flex items-center justify-between mb-3">
+                          <span className="text-xs font-bold text-blue-600 uppercase tracking-widest">{project.domain}</span>
+                        </div>
+                        <h3 className="text-lg font-bold mb-2 group-hover:text-blue-600 transition duration-300">
+                          {project.title}
+                        </h3>
+                        <p className="text-gray-600 text-sm mb-4 leading-relaxed line-clamp-3">
+                          {project.description}
+                        </p>
+                        <div className="inline-block px-3 py-1 bg-blue-50 text-blue-600 text-xs font-semibold rounded group-hover:bg-blue-600 group-hover:text-white transition duration-300">
+                          View Project →
+                        </div>
+                      </Link>
+                    ) : null}
+                  </div>
+                </motion.div>
+              );
+            })}
           </div>
         </div>
 
         {/* Mobile Timeline - Single column stacked */}
-        <div className="md:hidden relative">
-          {/* Mobile vertical line on the left */}
-          <motion.div className="absolute left-1.5 top-0 bottom-0 w-1 bg-gradient-to-b from-blue-600 via-blue-500 to-blue-400 origin-top" style={{ height: lineHeight }}></motion.div>
-
-          <div className="space-y-0 pl-8">
+        <div className="md:hidden">
+          <div ref={containerRef} className="relative space-y-8">
+            <div className="absolute left-3 top-0 bottom-0 w-px bg-gray-200" />
+            <motion.div
+              className="absolute left-3 top-0 w-1 bg-blue-600 origin-top"
+              style={{ height: lineHeight }}
+            />
             {sortedProjects.map((project, index) => (
               <motion.div
                 key={project.id}
@@ -180,60 +180,48 @@ export function TimelineProjects() {
                 whileInView="visible"
                 variants={itemVariants}
                 viewport={{ once: false, margin: '-80px' }}
-                className="relative py-8"
+                className="grid grid-cols-[2rem_1fr] gap-4"
               >
-                {/* Mobile date badge - positioned above card */}
-                <motion.div
-                  custom={index}
-                  initial="hidden"
-                  whileInView="visible"
-                  variants={dateVariants}
-                  viewport={{ once: false, margin: '-80px' }}
-                  className="mb-2"
-                >
-                  <span className="inline-block px-2.5 py-1 rounded-md bg-white border border-gray-300 text-gray-700 text-xs font-medium shadow-sm">
-                    {formatDate(project)}
-                  </span>
-                </motion.div>
-
-                {/* Mobile timeline dot */}
-                <motion.div
-                  custom={index}
-                  initial="hidden"
-                  whileInView="visible"
-                  variants={dotVariants}
-                  viewport={{ once: false, margin: '-80px' }}
-                  className="absolute -left-5 top-12 w-4 h-4 bg-blue-600 border-4 border-white rounded-full shadow-lg ring-2 ring-blue-100 z-20"
-                  whileHover={{ scale: 1.25 }}
-                  transition={{ duration: 0.3 }}
-                />
-
-                {/* Mobile content card */}
-                <Link
-                  to={`/projects/${project.slug}`}
-                  className="group relative bg-white rounded-lg shadow-md hover:shadow-xl transition-all duration-300 p-5 block hover:bg-blue-50"
-                >
-                  {/* Accent line on hover */}
-                  <div className="absolute top-0 left-0 h-1 w-0 group-hover:w-full bg-blue-600 rounded-t-lg transition-all duration-300"></div>
-
-                  <div className="flex items-start justify-between mb-2 gap-2">
-                    <motion.span className="text-xs font-bold text-blue-600 uppercase tracking-widest drop-shadow-sm" initial={{ opacity: 0.6 }} whileHover={{ opacity: 1 }} transition={{ duration: 0.2 }}>
-                      {project.domain}
-                    </motion.span>
+                {/* Left spine */}
+                <div className="relative">
+                  <div className="absolute top-0 bottom-0 left-1/2 -translate-x-1/2 w-px bg-gray-300" />
+                  <motion.div
+                    custom={index}
+                    initial="hidden"
+                    whileInView="visible"
+                    variants={dotVariants}
+                    viewport={{ once: false, margin: '-80px' }}
+                    className="absolute top-10 left-1/2 -translate-x-1/2 w-3 h-3 bg-blue-600 border-2 border-white rounded-full shadow"
+                  />
+                </div>
+                {/* Right content with date above */}
+                <div>
+                  <div className="mb-2">
+                    <span className="inline-block px-2.5 py-1 rounded-md bg-white border border-gray-300 text-gray-700 text-xs font-medium shadow-sm">
+                      {formatDate(project)}
+                    </span>
                   </div>
-
-                  <h3 className="text-base font-bold mb-2 group-hover:text-blue-600 transition duration-300">
-                    {project.title}
-                  </h3>
-
-                  <p className="text-gray-600 text-xs mb-3 leading-relaxed line-clamp-2">
-                    {project.description}
-                  </p>
-
-                  <motion.div className="inline-block px-3 py-1 bg-blue-50 text-blue-600 text-xs font-semibold rounded group-hover:bg-blue-600 group-hover:text-white transition duration-300" whileHover={{ x: 2 }} transition={{ duration: 0.2 }}>
-                    View Project →
-                  </motion.div>
-                </Link>
+                  <Link
+                    to={`/projects/${project.slug}`}
+                    className="group relative bg-white rounded-lg shadow-md hover:shadow-lg transition-all duration-300 p-5 block hover:bg-blue-50"
+                  >
+                    <div className="absolute top-0 left-0 h-1 w-0 group-hover:w-full bg-blue-600 rounded-t-lg transition-all duration-300"></div>
+                    <div className="flex items-start justify-between mb-2 gap-2">
+                      <span className="text-xs font-bold text-blue-600 uppercase tracking-widest">
+                        {project.domain}
+                      </span>
+                    </div>
+                    <h3 className="text-base font-bold mb-2 group-hover:text-blue-600 transition duration-300">
+                      {project.title}
+                    </h3>
+                    <p className="text-gray-600 text-xs mb-3 leading-relaxed line-clamp-2">
+                      {project.description}
+                    </p>
+                    <div className="inline-block px-3 py-1 bg-blue-50 text-blue-600 text-xs font-semibold rounded group-hover:bg-blue-600 group-hover:text-white transition duration-300">
+                      View Project →
+                    </div>
+                  </Link>
+                </div>
               </motion.div>
             ))}
           </div>

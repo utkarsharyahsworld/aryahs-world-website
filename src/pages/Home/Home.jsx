@@ -5,7 +5,7 @@ import { TimelineProjects } from './TimelineProjects';
 
 function HeroSection() {
   return (
-    <section className="bg-gradient-to-r from-blue-600 to-blue-800 text-white py-10 md:py-12 lg:py-16 min-h-[40vh]">
+    <section className="bg-gradient-to-r from-blue-600 to-blue-800 text-white py-12 md:py-16 lg:py-20 min-h-[45vh]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center">
         <div className="max-w-2xl">
           <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 md:mb-6 leading-tight">
@@ -62,7 +62,7 @@ function ServicesSection() {
   };
 
   return (
-    <section className="py-10 md:py-12 lg:py-16 bg-white">
+    <section className="py-12 md:py-16 lg:py-20 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           className="text-center mb-12 md:mb-16"
@@ -89,7 +89,7 @@ function ServicesSection() {
               variants={itemVariants}
               className="group h-full"
             >
-              <div className="relative p-6 md:p-8 h-full border border-gray-200 rounded-lg bg-white transition-all duration-300 hover:border-blue-500 hover:shadow-lg hover:bg-gradient-to-br hover:from-blue-50/50 hover:to-white">
+              <div className="relative p-5 sm:p-6 md:p-8 h-full border border-gray-200 rounded-lg bg-white transition-all duration-300 hover:border-blue-500 hover:shadow-lg hover:bg-gradient-to-br hover:from-blue-50/50 hover:to-white">
                 {/* Subtle accent background on hover */}
                 <div className="absolute inset-0 rounded-lg bg-gradient-to-br from-blue-500/0 via-transparent to-blue-400/0 group-hover:from-blue-500/5 group-hover:via-transparent group-hover:to-blue-400/3 transition-all duration-300 pointer-events-none"></div>
 
@@ -97,7 +97,7 @@ function ServicesSection() {
                 <div className="relative z-10">
                   {/* Icon - animated on hover */}
                   <motion.div
-                    className="text-5xl mb-4 origin-left"
+                    className="text-4xl sm:text-5xl mb-4 origin-left"
                     initial={{ opacity: 1, y: 0 }}
                     whileHover={{ y: -3, scale: 1.08 }}
                     transition={{ duration: 0.3, ease: 'easeOut' }}
@@ -166,7 +166,7 @@ function StatsSection() {
   ];
 
   return (
-    <section className="py-10 md:py-12 lg:py-16 bg-blue-600 text-white">
+    <section className="py-12 md:py-16 lg:py-20 bg-blue-600 text-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8">
           {stats.map((stat, index) => (

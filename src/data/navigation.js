@@ -12,6 +12,10 @@ export const navigationItems = [
     path: "/about"
   },
   {
+    label: "Careers",
+    path: "/careers"
+  },
+  {
     label: "Contact",
     path: "/contact",
     isPrimary: true
