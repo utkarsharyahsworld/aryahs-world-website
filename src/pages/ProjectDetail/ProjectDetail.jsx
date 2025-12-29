@@ -10,7 +10,7 @@ export function ProjectDetail() {
     return (
       <main>
         <section className="py-12 md:py-16 lg:py-20 bg-white">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <div className="mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <h1 className="text-4xl font-bold text-gray-900 mb-4">
               Project Not Found
             </h1>
@@ -45,7 +45,7 @@ export function ProjectDetail() {
           />
         </div>
         <header className="bg-gradient-to-b from-blue-600 to-blue-800 text-white py-10 md:py-12 lg:py-16">
-          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="mx-auto px-4 sm:px-6 lg:px-8">
             <div className="mb-4 md:mb-6">
               <Link
                 to="/projects"
@@ -64,7 +64,7 @@ export function ProjectDetail() {
           </div>
         </header>
 
-        <section className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10 md:py-12 lg:py-16">
+        <section className="mx-auto px-4 sm:px-6 lg:px-8 py-10 md:py-12 lg:py-16">
           <motion.div
             className="mb-12 md:mb-16"
             initial={{ opacity: 0, y: 20 }}
@@ -111,7 +111,7 @@ export function ProjectDetail() {
         </section>
 
         <section className="bg-gray-50 py-10 md:py-12 lg:py-16">
-          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="mx-auto px-4 sm:px-6 lg:px-8">
             <motion.h2
               className="text-2xl md:text-3xl lg:text-4xl font-bold mb-6 md:mb-8"
               initial={{ opacity: 0, y: 20 }}

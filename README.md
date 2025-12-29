@@ -1,6 +1,6 @@
-# Aryahs World Infotech Website
+# Aryahs World Venture Website
 
-Production-level static website for Aryahs World Infotech built with Vite + React.
+Production-level static website for Aryahs World Venture built with Vite + React.
 
 ## Project Structure
 
@@ -138,4 +138,4 @@ The project uses Tailwind CSS utility classes inline only. No separate CSS files
 
 ## License
 
-© 2025 Aryahs World Infotech. All rights reserved.
+© 2025 Aryahs World Venture. All rights reserved.

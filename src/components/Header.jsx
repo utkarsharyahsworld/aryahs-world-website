@@ -15,10 +15,10 @@ export function Header() {
         <Link to="/" className="flex items-center gap-2 sm:gap-3 flex-shrink-0">
           <img
             src="/assets/images/logo.jpg"
-            alt="Aryahs World Infotech"
+            alt="Aryahs World Ventures"
             className="h-10 w-10 sm:h-12 sm:w-12 md:h-14 md:w-14 object-contain"
           />
-          <span className="text-xl sm:text-2xl md:text-3xl font-bold text-blue-600 truncate">Aryahs World</span>
+          <span className="text-xl sm:text-2xl md:text-3xl font-bold text-blue-600 truncate">Aryahs World Ventures</span>
         </Link>
         <button
           className="md:hidden inline-flex items-center justify-center p-2 rounded-lg border border-gray-200 text-gray-700 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-600 transition"

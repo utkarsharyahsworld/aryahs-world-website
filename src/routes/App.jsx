@@ -2,6 +2,7 @@ import { BrowserRouter as Router, Routes, Route, Link, useLocation } from 'react
 import { useEffect } from 'react';
 import { company } from '../data/company';
 import { Header } from '../components/Header';
+import { GlobalPresence } from '../components/GlobalPresence';
 import { Footer } from '../components/Footer';
 import { Home } from '../pages/Home/Home';
 import { Projects } from '../pages/Projects/Projects';
@@ -105,6 +106,7 @@ export function App() {
             />
           </Routes>
         </div>
+        <GlobalPresence />
         <Footer />
       </div>
     </Router>

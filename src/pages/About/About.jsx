@@ -52,7 +52,7 @@ function LeadershipTeam() {
         <div className="text-center mb-12 md:mb-16">
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-3 md:mb-4 leading-tight">Leadership Team</h2>
           <p className="text-gray-600 text-base md:text-lg leading-relaxed">
-            Meet the visionary leaders driving innovation at Aryahs World Infotech.
+            Meet the visionary leaders driving innovation at Aryahs World Venture.
           </p>
         </div>
         <div className="flex justify-center">
@@ -287,7 +287,7 @@ export function About() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h1 className="text-3xl sm:text-4xl font-bold mb-3 md:mb-4 leading-tight">About Us</h1>
           <p className="text-blue-100 text-base md:text-lg leading-relaxed">
-            Discover the story behind Aryahs World Infotech and our commitment to excellence.
+            Discover the story behind Aryahs World Venture and our commitment to excellence.
           </p>
         </div>
       </section>

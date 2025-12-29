@@ -4,7 +4,7 @@ export const awards = [
     title: "ALFA Excellence Award 2023",
     organization: "ALFA Awards",
     date: "16 November 2023",
-    awardedTo: "Aryahs World Infotech",
+    awardedTo: "Aryahs World Venture",
     categories: [
       "Artificial Intelligence",
       "Digital Innovation",

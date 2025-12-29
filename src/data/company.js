@@ -1,8 +1,8 @@
 export const company = {
-  name: "Aryahs World Infotech",
+  name: "Aryahs World Venture",
   tagline: "Innovative IT Solutions for Modern Businesses",
   description:
-    "Aryahs World Infotech is a leading software development and IT consulting firm specializing in digital transformation, enterprise solutions, and custom software development.",
+    "Aryahs World Venture is a leading software development and IT consulting firm specializing in digital transformation, enterprise solutions, and custom software development.",
   founded: 2015,
   headquarter: "India",
   vision:
@@ -12,7 +12,7 @@ export const company = {
   contact: {
     email: "hello@aryahsworld.com",
     phone: "+91-XXXXXXXXXX",
-    address: "Aryahs World Infotech, India",
+    address: "Aryahs World Venture, India",
   },
   social: {
     linkedin: "https://linkedin.com/company/aryahs-world",
