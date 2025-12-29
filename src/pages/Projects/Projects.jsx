@@ -30,10 +30,10 @@ export function Projects() {
                 <button
                   key={domain}
                   onClick={() => setSelectedDomain(domain)}
-                  className={`px-6 py-2 rounded-lg font-medium transition ${
+                  className={`px-6 py-2 rounded-lg font-medium transition-all ${
                     selectedDomain === domain
-                      ? 'bg-blue-600 text-white'
-                      : 'bg-gray-200 text-gray-800 hover:bg-gray-300'
+                      ? 'bg-blue-600 text-white shadow-md hover:shadow-lg hover:-translate-y-0.5'
+                      : 'bg-gray-200 text-gray-800 hover:bg-gray-300 hover:-translate-y-0.5'
                   }`}
                 >
                   {domain}
@@ -47,7 +47,7 @@ export function Projects() {
               <Link
                 key={project.id}
                 to={`/projects/${project.slug}`}
-                className="group bg-white/90 border border-gray-200 hover:border-blue-200 rounded-xl overflow-hidden shadow-sm hover:shadow-lg hover:-translate-y-0.5 transition h-full flex flex-col backdrop-blur-[1px]"
+                className="group bg-white/90 border border-gray-200 hover:border-blue-200 rounded-xl overflow-hidden shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all h-full flex flex-col backdrop-blur-[1px]"
               >
                 <div className="h-48 md:h-56 bg-gray-200 flex items-center justify-center overflow-hidden">
                   <img

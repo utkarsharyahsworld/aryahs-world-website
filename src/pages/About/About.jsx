@@ -62,10 +62,10 @@ function LeadershipTeam() {
                 key={leader.id}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                whileHover={{ y: -4 }}
+                whileHover={{ y: -6 }}
                 transition={{ duration: 0.4, ease: 'easeOut' }}
                 viewport={{ once: true, margin: '-50px' }}
-                className="bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition border border-gray-200"
+                className="bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-lg transition-all border border-gray-200 hover:border-blue-200/50"
               >
                 <div className="bg-gray-100 flex items-center justify-center p-6 md:p-8">
                   <img
@@ -117,7 +117,7 @@ function AwardsAndRecognition() {
             {awards.map((award) => (
               <div
                 key={award.id}
-                className="rounded-xl p-6 md:p-8 lg:p-10 bg-white/90 border border-gray-200 hover:border-blue-200 shadow-sm hover:shadow-lg transition"
+                className="rounded-xl p-6 md:p-8 lg:p-10 bg-white/90 border border-gray-200 hover:border-blue-200 shadow-sm hover:shadow-lg transition-all hover:-translate-y-1"
               >
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 items-start">
                   <div className="flex-shrink-0">
@@ -207,12 +207,12 @@ function CoreValues() {
           {values.map((value, index) => (
             <div
               key={index}
-              className="bg-white p-6 md:p-7 rounded-lg shadow-sm hover:shadow-md transition border border-gray-100"
+              className="group bg-white p-6 md:p-7 rounded-lg shadow-sm hover:shadow-md hover:-translate-y-1 transition-all border border-gray-100 hover:border-blue-200/50"
             >
-              <h3 className="text-lg md:text-xl font-bold text-gray-900 mb-3 md:mb-4">
+              <h3 className="text-lg md:text-xl font-bold text-gray-900 mb-3 md:mb-4 group-hover:text-blue-600 transition-colors">
                 {value.title}
               </h3>
-              <p className="text-gray-700 text-sm md:text-base leading-relaxed">{value.description}</p>
+              <p className="text-gray-700 text-sm md:text-base leading-relaxed group-hover:text-gray-800 transition-colors">{value.description}</p>
             </div>
           ))}
         </div>
@@ -293,10 +293,9 @@ export function About() {
       </section>
 
       <CompanyOverview />
-      <CoreValues />
       <LeadershipTeam />
+      <CoreValues />
       <AwardsAndRecognition />
-      <GlobalPresenceSection />
     </main>
   );
 }

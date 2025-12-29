@@ -100,35 +100,44 @@ export function TimelineProjects() {
                 key={project.id}
                 id={itemId}
                 data-timeline-item
-                className="grid grid-cols-[1fr_6rem_1fr] gap-6 items-start py-12 first:pt-0 relative"
+                className="grid grid-cols-[1fr_5rem_1fr] gap-3 items-start py-8 first:pt-0 last:pb-8 relative"
               >
                 {/* Left Column */}
                 <motion.div
                   initial={{ opacity: 0, x: -40 }}
                   animate={isVisible ? { opacity: 1, x: 0 } : { opacity: 1, x: 0 }}
                   transition={{ duration: 0.6, ease: 'easeOut' }}
-                  className={isLeft ? 'flex justify-end pr-4' : 'invisible'}
+                  className={isLeft ? 'flex justify-end' : 'invisible'}
                 >
                   {isLeft && (
-                    <Link
-                      to={`/projects/${project.slug}`}
-                      className="group w-full max-w-xs block bg-white border border-gray-200 rounded-xl shadow-md hover:shadow-xl hover:-translate-y-1 p-6 transition-all duration-300 backdrop-blur-sm"
-                    >
-                      <div className="flex items-center justify-between mb-3">
-                        <span className="text-xs font-semibold text-blue-600 uppercase tracking-widest bg-blue-50 px-2.5 py-1 rounded-full">
-                          {project.domain}
-                        </span>
-                      </div>
-                      <h3 className="text-lg font-bold mb-2 text-gray-900 group-hover:text-blue-600 transition-colors">
-                        {project.title}
-                      </h3>
-                      <p className="text-gray-600 text-sm leading-relaxed">
-                        {project.description}
-                      </p>
-                      <div className="mt-4 text-blue-600 text-sm font-medium opacity-0 group-hover:opacity-100 transition-opacity">
-                        Learn more →
-                      </div>
-                    </Link>
+                    <div className="relative">
+                      <Link
+                        to={`/projects/${project.slug}`}
+                        className="group w-full max-w-xl block bg-gradient-to-br from-white via-white to-slate-50/50 border border-gray-200/40 rounded-2xl shadow-lg shadow-gray-950/8 hover:shadow-2xl hover:shadow-gray-950/12 hover:-translate-y-2 p-8 transition-all duration-300 backdrop-blur-sm overflow-hidden"
+                      >
+                        {/* Corner accent - top-right */}
+                        <div className="absolute top-0 right-0 w-20 h-20 bg-gradient-to-br from-blue-600/5 to-blue-400/0 rounded-full -mr-10 -mt-10 pointer-events-none" />
+                        
+                        {/* Content */}
+                        <div className="relative z-10">
+                          <div className="flex items-center justify-between mb-5">
+                            <span className="text-xs font-bold text-blue-700 uppercase tracking-widest bg-gradient-to-r from-blue-50 to-blue-50/30 px-3 py-2 rounded-lg border border-blue-200/60">
+                              {project.domain}
+                            </span>
+                          </div>
+                          <h3 className="text-xl font-black mb-4 text-gray-950 group-hover:text-blue-600 transition-colors leading-tight">
+                            {project.title}
+                          </h3>
+                          <p className="text-gray-600 text-sm leading-relaxed mb-6">
+                            {project.description}
+                          </p>
+                          <div className="text-blue-600 text-sm font-bold opacity-0 group-hover:opacity-100 transition-opacity">
+                            Learn more  →
+                          </div>
+                        </div>
+                      </Link>
+                      <div className="absolute top-1/2 -right-3 w-3 h-px bg-gray-300 -translate-y-1/2"></div>
+                    </div>
                   )}
                 </motion.div>
 
@@ -139,7 +148,8 @@ export function TimelineProjects() {
                     animate={isVisible ? { scale: 1, opacity: 1 } : { scale: 1, opacity: 1 }}
                     transition={{ duration: 0.4, ease: 'easeOut', delay: 0.2 }}
                   >
-                    <div className="w-4 h-4 bg-blue-600 border-3 border-white rounded-full shadow-lg ring-2 ring-blue-200" />
+                    {/* Timeline dot with soft glow */}
+                    <div className="w-4 h-4 bg-blue-600 border-3 border-white rounded-full shadow-lg ring-2 ring-blue-200 shadow-blue-500/20" />
                   </motion.div>
                   <motion.div
                     initial={{ opacity: 0, y: 10 }}
@@ -158,28 +168,37 @@ export function TimelineProjects() {
                   initial={{ opacity: 0, x: 40 }}
                   animate={isVisible ? { opacity: 1, x: 0 } : { opacity: 1, x: 0 }}
                   transition={{ duration: 0.6, ease: 'easeOut' }}
-                  className={!isLeft ? 'flex justify-start pl-4' : 'invisible'}
+                  className={!isLeft ? 'flex justify-start' : 'invisible'}
                 >
                   {!isLeft && (
-                    <Link
-                      to={`/projects/${project.slug}`}
-                      className="group w-full max-w-xs block bg-white border border-gray-200 rounded-xl shadow-md hover:shadow-xl hover:-translate-y-1 p-6 transition-all duration-300 backdrop-blur-sm"
-                    >
-                      <div className="flex items-center justify-between mb-3">
-                        <span className="text-xs font-semibold text-blue-600 uppercase tracking-widest bg-blue-50 px-2.5 py-1 rounded-full">
-                          {project.domain}
-                        </span>
-                      </div>
-                      <h3 className="text-lg font-bold mb-2 text-gray-900 group-hover:text-blue-600 transition-colors">
-                        {project.title}
-                      </h3>
-                      <p className="text-gray-600 text-sm leading-relaxed">
-                        {project.description}
-                      </p>
-                      <div className="mt-4 text-blue-600 text-sm font-medium opacity-0 group-hover:opacity-100 transition-opacity">
-                        Learn more →
-                      </div>
-                    </Link>
+                    <div className="relative">
+                      <div className="absolute top-1/2 -left-3 w-3 h-px bg-gray-300 -translate-y-1/2"></div>
+                      <Link
+                        to={`/projects/${project.slug}`}
+                        className="group w-full max-w-xl block bg-gradient-to-br from-white via-white to-slate-50/50 border border-gray-200/40 rounded-2xl shadow-lg shadow-gray-950/8 hover:shadow-2xl hover:shadow-gray-950/12 hover:-translate-y-2 p-8 transition-all duration-300 backdrop-blur-sm overflow-hidden"
+                      >
+                        {/* Corner accent - bottom-left */}
+                        <div className="absolute bottom-0 left-0 w-20 h-20 bg-gradient-to-tr from-blue-600/5 to-blue-400/0 rounded-full -ml-10 -mb-10 pointer-events-none" />
+                        
+                        {/* Content */}
+                        <div className="relative z-10">
+                          <div className="flex items-center justify-between mb-5">
+                            <span className="text-xs font-bold text-blue-700 uppercase tracking-widest bg-gradient-to-r from-blue-50 to-blue-50/30 px-3 py-2 rounded-lg border border-blue-200/60">
+                              {project.domain}
+                            </span>
+                          </div>
+                          <h3 className="text-xl font-black mb-4 text-gray-950 group-hover:text-blue-600 transition-colors leading-tight">
+                            {project.title}
+                          </h3>
+                          <p className="text-gray-600 text-sm leading-relaxed mb-6">
+                            {project.description}
+                          </p>
+                          <div className="text-blue-600 text-sm font-bold opacity-0 group-hover:opacity-100 transition-opacity">
+                            Learn more  →
+                          </div>
+                        </div>
+                      </Link>
+                    </div>
                   )}
                 </motion.div>
               </div>
@@ -202,7 +221,7 @@ export function TimelineProjects() {
                   key={project.id}
                   id={itemId}
                   data-timeline-item
-                  className="grid grid-cols-[1fr_4rem_1fr] gap-4 items-start py-12 first:pt-0 relative"
+                  className="grid grid-cols-[1fr_4rem_1fr] gap-4 items-start py-8 first:pt-0 last:pb-8 relative"
                 >
                   {/* Left */}
                   {index % 2 === 0 ? (
@@ -250,7 +269,7 @@ export function TimelineProjects() {
                 key={project.id}
                 id={itemId}
                 data-timeline-item
-                className="grid grid-cols-[2.5rem_1fr] gap-5 pb-12 first:pt-0 relative"
+                className="grid grid-cols-[2.5rem_1fr] gap-5 pb-8 first:pt-0 last:pb-16 relative"
               >
                 {/* Dot */}
                 <div className="flex flex-col items-center pt-2 relative z-20">

@@ -10,12 +10,12 @@ export const company = {
   mission:
     "Deliver exceptional IT solutions that drive growth, efficiency, and competitive advantage for our clients.",
   contact: {
-    email: "hello@aryahsworld.com",
+    email: "hr@aryahsworld.com",
     phone: "+91-XXXXXXXXXX",
     address: "Aryahs World Venture, India",
   },
   social: {
-    linkedin: "https://linkedin.com/company/aryahs-world",
+    linkedin: "https://www.linkedin.com/company/aryahs-world-infotech/",
     twitter: "https://twitter.com/aryahsworld",
     github: "https://github.com/aryahsworld",
   },
