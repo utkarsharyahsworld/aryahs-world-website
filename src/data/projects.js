@@ -100,8 +100,8 @@ Outcomes:
   },
   {
     id: 4,
-    slug: "6g-security-connect",
-    title: "6G Security Connect",
+    slug: "6g-security-project",
+    title: "6G Security Project",
     month: "Apr",
     year: 2025,
     domain: "AI / Cybersecurity",

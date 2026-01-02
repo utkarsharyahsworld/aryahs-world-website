@@ -1,8 +1,10 @@
 import { useMemo, useState } from 'react';
 import { motion } from 'framer-motion';
 import { company } from '../../data/company';
+import { SEO } from '../../components/SEO'; // Imported, now we must use it
 
 export function Careers() {
+  // Form State
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -11,8 +13,15 @@ export function Careers() {
     coverLetter: '',
   });
   const [resume, setResume] = useState(null);
-  const [submitted, setSubmitted] = useState(false);
-  const [error, setError] = useState('');
+  
+  // UI Status State (Loading / Success / Error)
+  const [status, setStatus] = useState({
+    loading: false,
+    success: false,
+    error: ''
+  });
+
+  // Filter State
   const [search, setSearch] = useState('');
   const [dept, setDept] = useState('All');
   const [loc, setLoc] = useState('All');
@@ -24,55 +33,103 @@ export function Careers() {
   };
 
   const handleFileChange = (e) => {
-    setError('');
+    setStatus(prev => ({ ...prev, error: '' })); // Clear previous errors
     const file = e.target.files?.[0] || null;
+    
     if (!file) {
       setResume(null);
       return;
     }
+
     const allowedTypes = [
       'application/pdf',
       'application/msword',
       'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
     ];
-    const maxSizeBytes = 5 * 1024 * 1024;
+    const maxSizeBytes = 5 * 1024 * 1024; // 5MB
+
     if (!allowedTypes.includes(file.type)) {
-      setError('Please upload a PDF, DOC, or DOCX file.');
-      e.target.value = '';
+      setStatus(prev => ({ ...prev, error: 'Please upload a PDF, DOC, or DOCX file.' }));
+      e.target.value = ''; // Reset input
       setResume(null);
       return;
     }
+
     if (file.size > maxSizeBytes) {
-      setError('File size must be 5MB or less.');
-      e.target.value = '';
+      setStatus(prev => ({ ...prev, error: 'File size must be 5MB or less.' }));
+      e.target.value = ''; // Reset input
       setResume(null);
       return;
     }
+
     setResume(file);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    setError('');
+    
+    // 1. Basic Validation
     if (!resume) {
-      setError('Please attach your resume.');
+      setStatus({ loading: false, success: false, error: 'Please attach your resume.' });
       return;
     }
-    setSubmitted(true);
-    setFormData({
-      name: '',
-      email: '',
-      phone: '',
-      position: '',
-      coverLetter: '',
-    });
-    setResume(null);
-    setTimeout(() => setSubmitted(false), 5000);
+
+    // 2. Set Loading State
+    setStatus({ loading: true, success: false, error: '' });
+
+    // 3. Create FormData (Required for File Uploads)
+    const payload = new FormData();
+    payload.append('name', formData.name);
+    payload.append('email', formData.email);
+    payload.append('phone', formData.phone);
+    payload.append('position', formData.position);
+    payload.append('coverLetter', formData.coverLetter);
+    payload.append('resume', resume); // 'resume' matches upload.single('resume') in backend
+
+    try {
+      // 4. Send to Backend
+      const response = await fetch('http://localhost:5000/api/career', {
+        method: 'POST',
+        body: payload, // Browser automatically sets Content-Type to multipart/form-data
+      });
+
+      const result = await response.json();
+
+      if (result.success) {
+        // 5. Handle Success
+        setStatus({ loading: false, success: true, error: '' });
+        
+        // Reset Form
+        setFormData({
+          name: '',
+          email: '',
+          phone: '',
+          position: '',
+          coverLetter: '',
+        });
+        setResume(null);
+        
+        // Clear file input visually
+        const fileInput = document.getElementById('resume');
+        if (fileInput) fileInput.value = '';
+
+        // Auto-hide success message after 5 seconds
+        setTimeout(() => setStatus(prev => ({ ...prev, success: false })), 5000);
+      } else {
+        // 6. Handle Backend Error
+        throw new Error(result.message || 'Application failed.');
+      }
+    } catch (err) {
+      console.error(err);
+      setStatus({ loading: false, success: false, error: 'Server error. Please try again later.' });
+    }
   };
 
+  // --- Search & Filter Logic ---
   const departments = useMemo(() => ['All', ...Array.from(new Set(company.jobs.map((j) => j.department)))], []);
   const locations = useMemo(() => ['All', ...Array.from(new Set(company.jobs.map((j) => j.location)))], []);
   const types = useMemo(() => ['All', ...Array.from(new Set(company.jobs.map((j) => j.type)))], []);
+  
   const filteredJobs = useMemo(() => {
     return company.jobs.filter((j) => {
       const s = search.trim().toLowerCase();
@@ -98,6 +155,13 @@ export function Careers() {
 
   return (
     <main>
+      {/* ✅ SEO COMPONENT ADDED HERE */}
+      <SEO 
+        title="Careers - Join Our Team"
+        description="Build the future with Aryahs World Venture. We are hiring Frontend Developers, Backend Engineers, and Product Managers. Apply now!"
+        url="/careers"
+      />
+
       <section className="bg-blue-600 text-white py-10 md:py-12 lg:py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.h1
@@ -233,20 +297,24 @@ export function Careers() {
             </div>
 
             <div className="lg:col-span-2">
-              {submitted && (
+              {/* Success Message */}
+              {status.success && (
                 <div className="mb-6 p-4 md:p-5 bg-green-50 border border-green-200 rounded-lg">
                   <p className="text-green-800 font-semibold text-sm md:text-base">
                     ✓ Application submitted! We’ll review and get back shortly.
                   </p>
                 </div>
               )}
-              {error && (
+              
+              {/* Error Message */}
+              {status.error && (
                 <div className="mb-6 p-4 md:p-5 bg-red-50 border border-red-200 rounded-lg">
                   <p className="text-red-800 font-semibold text-sm md:text-base">
-                    {error}
+                    {status.error}
                   </p>
                 </div>
               )}
+
               <form onSubmit={handleSubmit} className="space-y-5 md:space-y-6" id="application-form">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-6">
                   <div>
@@ -350,9 +418,10 @@ export function Careers() {
 
                 <button
                   type="submit"
-                  className="w-full px-6 md:px-8 py-3 md:py-4 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition text-sm md:text-base"
+                  disabled={status.loading}
+                  className="w-full px-6 md:px-8 py-3 md:py-4 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition text-sm md:text-base disabled:bg-gray-400 disabled:cursor-not-allowed"
                 >
-                  Submit Application
+                  {status.loading ? 'Uploading Application...' : 'Submit Application'}
                 </button>
               </form>
             </div>
@@ -362,4 +431,3 @@ export function Careers() {
     </main>
   );
 }
-

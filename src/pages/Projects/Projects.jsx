@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { projects } from '../../data/projects';
 import { useState } from 'react';
+import { SEO } from '../../components/SEO'; // <--- IMPORT THIS
 
 export function Projects() {
   const [selectedDomain, setSelectedDomain] = useState('All');
@@ -12,6 +13,13 @@ export function Projects() {
 
   return (
     <main>
+      {/* ✅ ADD SEO TAG HERE */}
+      <SEO 
+        title="Our Projects & Case Studies"
+        description="Explore Aryahs World Venture's portfolio of successful software implementations, cloud migrations, and enterprise solutions."
+        url="/projects"
+      />
+
       <section className="bg-blue-600 text-white py-8 md:py-16 lg:py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h1 className="text-3xl sm:text-4xl font-bold mb-3 md:mb-4 leading-tight">Our Projects</h1>

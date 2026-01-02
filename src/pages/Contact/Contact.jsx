@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { company } from '../../data/company';
+import { SEO } from '../../components/SEO'; // <--- IMPORTED SEO
 
 export function Contact() {
   const [formData, setFormData] = useState({
@@ -12,7 +13,11 @@ export function Contact() {
     message: '',
   });
 
-  const [submitted, setSubmitted] = useState(false);
+  const [status, setStatus] = useState({
+    loading: false,
+    success: false,
+    error: ''
+  });
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -22,22 +27,66 @@ export function Contact() {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    setSubmitted(true);
-    setFormData({
-      name: '',
-      email: '',
-      phone: '',
-      company: '',
-      subject: '',
-      message: '',
-    });
-    setTimeout(() => setSubmitted(false), 5000);
+    
+    // 1. Set Loading State
+    setStatus({ loading: true, success: false, error: '' });
+
+    try {
+      // 2. Send Data to Backend
+      const response = await fetch('http://localhost:5000/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+
+      const result = await response.json();
+
+      if (response.ok && result.success) { // Check response.ok too
+        // 3. Handle Success
+        setStatus({ loading: false, success: true, error: '' });
+        
+        // Reset Form
+        setFormData({
+          name: '',
+          email: '',
+          phone: '',
+          company: '',
+          subject: '',
+          message: '',
+        });
+
+        // Auto-hide success message after 5 seconds
+        setTimeout(() => setStatus(prev => ({ ...prev, success: false })), 5000);
+      } else {
+        // 4. Handle Server Validation Errors
+        // Throw the actual message sent by the server
+        throw new Error(result.message || 'Failed to send message.');
+      }
+    } catch (err) {
+      console.error("Submission Error:", err);
+      // 5. Handle Network Errors
+      // ✅ FIX: Use err.message so we see the real server error (e.g. "Missing fields")
+      setStatus({ 
+        loading: false, 
+        success: false, 
+        error: err.message || 'Unable to connect to the server. Please check your backend.' 
+      });
+    }
   };
 
   return (
     <main>
+      {/* ✅ SEO COMPONENT ADDED HERE */}
+      <SEO 
+        title="Contact Us"
+        description="Get in touch with Aryahs World Venture. Contact our Bengaluru or Dubai offices for software consulting and enterprise solutions."
+        url="/contact"
+      />
+
       <section className="bg-blue-600 text-white py-10 md:py-12 lg:py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.h1
@@ -68,6 +117,7 @@ export function Contact() {
             transition={{ duration: 0.5, ease: 'easeOut' }}
             viewport={{ once: true, margin: '-50px' }}
           >
+            {/* Contact Info Column */}
             <div>
               <h3 className="text-2xl md:text-3xl font-bold mb-6 md:mb-8">Contact Information</h3>
               <div className="space-y-6 md:space-y-8">
@@ -125,14 +175,27 @@ export function Contact() {
               </div>
             </div>
 
+            {/* Form Column */}
             <div className="lg:col-span-2">
-              {submitted && (
+              
+              {/* Success Message */}
+              {status.success && (
                 <div className="mb-6 p-4 md:p-5 bg-green-50 border border-green-200 rounded-lg">
                   <p className="text-green-800 font-semibold text-sm md:text-base">
                     ✓ Thank you! Your message has been received. We'll be in touch soon.
                   </p>
                 </div>
               )}
+
+              {/* Error Message */}
+              {status.error && (
+                <div className="mb-6 p-4 md:p-5 bg-red-50 border border-red-200 rounded-lg">
+                  <p className="text-red-800 font-semibold text-sm md:text-base">
+                    ⚠️ {status.error}
+                  </p>
+                </div>
+              )}
+
               <form onSubmit={handleSubmit} className="space-y-5 md:space-y-6">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-6">
                   <div>
@@ -232,9 +295,10 @@ export function Contact() {
 
                 <button
                   type="submit"
-                  className="w-full px-6 md:px-8 py-3 md:py-4 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition text-sm md:text-base"
+                  disabled={status.loading}
+                  className="w-full px-6 md:px-8 py-3 md:py-4 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition text-sm md:text-base disabled:bg-gray-400 disabled:cursor-not-allowed"
                 >
-                  Send Message
+                  {status.loading ? 'Sending...' : 'Send Message'}
                 </button>
               </form>
             </div>

@@ -2,6 +2,9 @@ import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { services } from '../../data/services';
 import { TimelineProjects } from './TimelineProjects';
+import { SEO } from '../../components/SEO';
+
+// --- Helper Components (Hero, Services, etc.) ---
 
 function HeroSection() {
   return (
@@ -37,15 +40,11 @@ function HeroSection() {
 function ServicesSection() {
   const featuredServices = services;
 
-  // Animation variants for entrance
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
-      transition: {
-        staggerChildren: 0.08,
-        delayChildren: 0.15,
-      },
+      transition: { staggerChildren: 0.08, delayChildren: 0.15 },
     },
   };
 
@@ -54,10 +53,7 @@ function ServicesSection() {
     visible: {
       opacity: 1,
       y: 0,
-      transition: {
-        duration: 0.5,
-        ease: 'easeOut',
-      },
+      transition: { duration: 0.5, ease: 'easeOut' },
     },
   };
 
@@ -84,18 +80,10 @@ function ServicesSection() {
           viewport={{ once: true, margin: '-100px' }}
         >
           {featuredServices.map((service) => (
-            <motion.div
-              key={service.id}
-              variants={itemVariants}
-              className="group h-full"
-            >
+            <motion.div key={service.id} variants={itemVariants} className="group h-full">
               <div className="relative p-5 sm:p-6 md:p-8 h-full border border-gray-200 rounded-lg bg-white transition-all duration-300 hover:border-blue-500 hover:shadow-lg hover:bg-gradient-to-br hover:from-blue-50/50 hover:to-white">
-                {/* Subtle accent background on hover */}
                 <div className="absolute inset-0 rounded-lg bg-gradient-to-br from-blue-500/0 via-transparent to-blue-400/0 group-hover:from-blue-500/5 group-hover:via-transparent group-hover:to-blue-400/3 transition-all duration-300 pointer-events-none"></div>
-
-                {/* Content wrapper */}
                 <div className="relative z-10">
-                  {/* Icon - animated on hover */}
                   <motion.div
                     className="text-4xl sm:text-5xl mb-4 origin-left"
                     initial={{ opacity: 1, y: 0 }}
@@ -104,8 +92,6 @@ function ServicesSection() {
                   >
                     {service.icon}
                   </motion.div>
-
-                  {/* Title - enhanced on hover */}
                   <motion.h3
                     className="text-lg md:text-xl font-semibold mb-3 text-gray-900 transition-colors duration-300 group-hover:text-blue-600"
                     initial={{ color: 'rgb(17, 24, 39)' }}
@@ -114,8 +100,6 @@ function ServicesSection() {
                   >
                     {service.name}
                   </motion.h3>
-
-                  {/* Description - improved clarity on hover */}
                   <motion.p
                     className="text-gray-600 text-base leading-relaxed transition-colors duration-300 group-hover:text-gray-800"
                     initial={{ opacity: 0.75 }}
@@ -125,8 +109,6 @@ function ServicesSection() {
                     {service.description}
                   </motion.p>
                 </div>
-
-                {/* Smooth upward lift effect on hover */}
                 <motion.div
                   className="absolute inset-0 rounded-lg"
                   initial={{ y: 0 }}
@@ -139,22 +121,13 @@ function ServicesSection() {
           ))}
         </motion.div>
       </div>
-
-      {/* Motion-safe fallback */}
       <style>{`
         @media (prefers-reduced-motion: reduce) {
-          * {
-            animation-duration: 0.01ms !important;
-            transition-duration: 0.01ms !important;
-          }
+          * { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
         }
       `}</style>
     </section>
   );
-}
-
-function FeaturedProjectsSection() {
-  return <TimelineProjects />;
 }
 
 function StatsSection() {
@@ -181,12 +154,38 @@ function StatsSection() {
   );
 }
 
+// --- Main Home Component (Changed to Named Export) ---
+
 export function Home() {
   return (
     <main>
+      {/* 1. SEO Configuration */}
+      <SEO 
+        title="Home"
+        description="Aryahs World Venture is a leading IT consulting firm specializing in custom software development, cloud solutions, and digital transformation for global enterprises."
+        url="/"
+      />
+
+      {/* 2. Google Schema (Structured Data) */}
+      <script type="application/ld+json">
+        {JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "Organization",
+          "name": "Aryahs World Venture",
+          "url": "https://aryahsworld.com",
+          "logo": "https://aryahsworld.com/logo.png",
+          "sameAs": [
+            "https://www.linkedin.com/company/aryahs-world-infotech/",
+            "https://twitter.com/aryahsworld",
+            "https://github.com/aryahsworld"
+          ]
+        })}
+      </script>
+
+      {/* 3. Main Content */}
       <HeroSection />
       <ServicesSection />
-      <FeaturedProjectsSection />
+      <TimelineProjects />
       <StatsSection />
     </main>
   );

@@ -1,6 +1,7 @@
 import { useParams, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { projects } from '../../data/projects';
+import { SEO } from '../../components/SEO'; // <--- IMPORT THIS
 
 export function ProjectDetail() {
   const { slug } = useParams();
@@ -9,6 +10,8 @@ export function ProjectDetail() {
   if (!project) {
     return (
       <main>
+        {/* SEO for 404 Project */}
+        <SEO title="Project Not Found" />
         <section className="py-12 md:py-16 lg:py-20 bg-white">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <h1 className="text-4xl font-bold text-gray-900 mb-4">
@@ -35,6 +38,14 @@ export function ProjectDetail() {
 
   return (
     <main>
+      {/* ✅ DYNAMIC SEO TAGS HERE */}
+      <SEO 
+        title={project.title}
+        description={project.description}
+        url={`/projects/${project.slug}`}
+        image={project.image}
+      />
+
       <article className="bg-white">
         <div className="h-96 bg-gray-200 overflow-hidden">
           <img

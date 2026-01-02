@@ -2,6 +2,7 @@ import { company } from '../../data/company';
 import { leadership } from '../../data/leadership';
 import { awards } from '../../data/awards';
 import { motion } from 'framer-motion';
+import { SEO } from '../../components/SEO'; // <--- IMPORT THIS
 
 function CompanyOverview() {
   return (
@@ -221,6 +222,8 @@ function CoreValues() {
   );
 }
 
+// GlobalPresenceSection is defined but not currently used in the main About component return. 
+// Kept for future use or can be added to the return statement if needed.
 function GlobalPresenceSection() {
   const meta = {
     title: "Global Presence",
@@ -283,6 +286,13 @@ function GlobalPresenceSection() {
 export function About() {
   return (
     <main>
+      {/* ✅ SEO COMPONENT ADDED HERE */}
+      <SEO 
+        title="About Us"
+        description="Discover the story behind Aryahs World Venture, our leadership team, core values, and our commitment to excellence in IT solutions."
+        url="/about"
+      />
+
       <section className="bg-blue-600 text-white py-10 md:py-12 lg:py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h1 className="text-3xl sm:text-4xl font-bold mb-3 md:mb-4 leading-tight">About Us</h1>
