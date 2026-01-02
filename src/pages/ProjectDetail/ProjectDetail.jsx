@@ -1,7 +1,7 @@
 import { useParams, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { projects } from '../../data/projects';
-import { SEO } from '../../components/SEO'; // <--- IMPORT THIS
+import { SEO } from '../../components/SEO';
 
 export function ProjectDetail() {
   const { slug } = useParams();
@@ -10,7 +10,6 @@ export function ProjectDetail() {
   if (!project) {
     return (
       <main>
-        {/* SEO for 404 Project */}
         <SEO title="Project Not Found" />
         <section className="py-12 md:py-16 lg:py-20 bg-white">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
@@ -38,7 +37,6 @@ export function ProjectDetail() {
 
   return (
     <main>
-      {/* ✅ DYNAMIC SEO TAGS HERE */}
       <SEO 
         title={project.title}
         description={project.description}
@@ -47,24 +45,30 @@ export function ProjectDetail() {
       />
 
       <article className="bg-white">
-        <div className="h-96 bg-gray-200 overflow-hidden">
+        {/* Full Image Display (Fixed) */}
+        <div className="w-full bg-gray-100 flex justify-center">
           <img
             src={project.image}
             alt={project.title}
-            className="w-full h-full object-cover"
+            className="w-full h-auto max-h-[85vh] object-contain shadow-sm"
             loading="eager"
           />
         </div>
+
         <header className="bg-gradient-to-b from-blue-600 to-blue-800 text-white py-10 md:py-12 lg:py-16">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="mb-4 md:mb-6">
+            
+            {/* ✅ NEW UNIQUE BACK BUTTON */}
+            <div className="mb-6 md:mb-8">
               <Link
                 to="/projects"
-                className="text-blue-100 hover:text-white transition inline-flex items-center gap-1 text-sm md:text-base"
+                className="group inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-white/10 border border-white/20 backdrop-blur-sm hover:bg-white hover:text-blue-700 transition-all duration-300 text-sm font-semibold text-white shadow-sm"
               >
-                ← Back to Projects
+                <span className="transform group-hover:-translate-x-1 transition-transform duration-300 text-lg leading-none pb-0.5">←</span>
+                Back to Projects
               </Link>
             </div>
+
             <span className="text-blue-100 text-xs md:text-sm font-semibold uppercase tracking-wide">
               {project.domain}
             </span>
